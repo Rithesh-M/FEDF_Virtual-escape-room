@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Escape - Ultimate Brain Training</title>
+    <link rel="stylesheet" href="project.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="particles" id="particles"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="container">
+        <!-- Login/Register Page -->
+        <div id="loginPage" class="page active">
+            <div class="logo">🧠</div>
+            <h1>MIND ESCAPE</h1>
+            <p class="subtitle">UNLOCK YOUR BRAIN'S FULL POTENTIAL</p>
+            
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="showAuthTab('login')">LOGIN</button>
+                    <button class="auth-tab" onclick="showAuthTab('register')">REGISTER</button>
+                </div>
+                
+                <div id="loginForm" class="auth-form active">
+                    <input type="text" id="loginUsername" placeholder="Username" class="auth-input">
+                    <input type="password" id="loginPassword" placeholder="Password" class="auth-input">
+                    <button class="btn-primary" onclick="handleLogin()">LOGIN</button>
+                    <p class="auth-message" id="loginMessage"></p>
+                </div>
+                
+                <div id="registerForm" class="auth-form">
+                    <input type="text" id="registerUsername" placeholder="Username" class="auth-input">
+                    <input type="email" id="registerEmail" placeholder="Email" class="auth-input">
+                    <input type="password" id="registerPassword" placeholder="Password" class="auth-input">
+                    <input type="password" id="registerConfirmPassword" placeholder="Confirm Password" class="auth-input">
+                    <button class="btn-primary" onclick="handleRegister()">REGISTER</button>
+                    <p class="auth-message" id="registerMessage"></p>
+                </div>
+            </div>
+        </div>
+        <!-- Home Page -->
+        <div id="homePage" class="page">
+            <div class="home-header">
+                <div class="theme-toggle" onclick="toggleTheme()">
+                    <span id="themeIcon">🌙</span>
+                </div>
+                <div class="profile-section" onclick="toggleProfileMenu()">
+                    <div class="profile-icon" id="profileIcon">👤</div>
+                    <span class="username-display" id="usernameDisplay">User</span>
+                </div>
+            </div>
+            
+            <div class="profile-menu" id="profileMenu">
+                <div class="profile-menu-item" onclick="showProfile()">📊 View Profile</div>
+                <div class="profile-menu-item" onclick="showSettings()">⚙️ Settings</div>
+                <div class="profile-menu-item" onclick="handleLogout()">🚪 Logout</div>
+            </div>
+            
+            <div class="logo">🧠</div>
+            <h1>MIND ESCAPE</h1>
+            <p class="subtitle">UNLOCK YOUR BRAIN'S FULL POTENTIAL</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">High Score</span>
+                    <span class="stat-value" id="highScore">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Games</span>
+                    <span class="stat-value" id="gamesPlayed">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Max Level</span>
+                    <span class="stat-value" id="maxLevel">0</span>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="startGame()">Begin Training</button>
+            <div class="benefits">
+                <h3>🎯 COGNITIVE ENHANCEMENT</h3>
+                <ul>
+                    <li>Memory Boost</li>
+                    <li>Pattern Recognition</li>
+                    <li>Speed Thinking</li>
+                    <li>Problem Solving</li>
+                    <li>Focus Enhancement</li>
+                    <li>Color Perception</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Game Page -->
+        <div id="gamePage" class="page">
+            <div class="game-header">
+                <button class="btn-back" onclick="goHome()">← EXIT</button>
+                <div class="score-display">
+                    <span>SCORE<strong id="currentScore">0</strong></span>
+                    <span>LEVEL<strong id="currentLevel">1</strong></span>
+                </div>
+            </div>
+
+            <div class="game-info">
+                <h2 id="challengeTitle">Memory Challenge</h2>
+                <p id="challengeInstructions">Memorize the glowing pattern</p>
+            </div>
+
+            <div id="gameArea" class="game-area">
+                <!-- Memory Grid Challenge -->
+                <div id="memoryChallenge" class="challenge active">
+                    <div class="grid" id="memoryGrid"></div>
+                    <button class="btn-primary" id="memoryStartBtn" onclick="startMemoryChallenge()">START</button>
+                </div>
+
+                <!-- Math Challenge -->
+                <div id="mathChallenge" class="challenge">
+                    <div class="math-question">
+                        <h3 id="mathQuestion">5 + 7 = ?</h3>
+                        <input type="number" id="mathAnswer" placeholder="Enter Answer">
+                        <button class="btn-primary" onclick="checkMathAnswer()">SUBMIT</button>
+                    </div>
+                </div>
+
+                <!-- Pattern Challenge -->
+                <div id="patternChallenge" class="challenge">
+                    <div class="pattern-sequence" id="patternSequence"></div>
+                    <div class="pattern-options" id="patternOptions"></div>
+                </div>
+
+                <!-- Color Match Challenge -->
+                <div id="colorChallenge" class="challenge">
+                    <div class="word-display">
+                        <div class="word-text" id="colorWord">RED</div>
+                    </div>
+                    <div class="color-grid" id="colorGrid"></div>
+                </div>
+
+                <!-- Word Challenge -->
+                <div id="wordChallenge" class="challenge">
+                    <div class="word-display">
+                        <div class="word-text" id="wordText">BRAIN</div>
+                        <p style="color: rgba(255,255,255,0.6); margin-top: 15px;">Was this word shown before?</p>
+                    </div>
+                    <div class="word-buttons">
+                        <button class="word-btn" onclick="checkWordAnswer(true)">YES</button>
+                        <button class="word-btn" onclick="checkWordAnswer(false)">NO</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- Result Page -->
+        <div id="resultPage" class="page">
+            <div class="result-content">
+                <div class="result-icon" id="resultIcon">🎉</div>
+                <h2 id="resultTitle">Incredible Performance!</h2>
+                <div class="achievement-badges">
+                    <div class="badge" id="badge1">🏆</div>
+                    <div class="badge" id="badge2">⚡</div>
+                    <div class="badge" id="badge3">🎯</div>
+                </div>
+                <div class="final-score">
+                    <span class="score-label">FINAL SCORE</span>
+                    <span class="score-value" id="finalScore">0</span>
+                </div>
+                <div class="result-message" id="resultMessage">
+                    Your cognitive abilities are extraordinary!
+                </div>
+                <button class="btn-primary" onclick="startGame()">PLAY AGAIN</button>
+                <button class="btn-secondary" onclick="goHome()">HOME</button>
+            </div>
+        </div>
+        
+        <!-- Profile Page -->
+        <div id="profilePage" class="page">
+            <div class="profile-header">
+                <button class="btn-back" onclick="goHome()">← BACK</button>
+                <h2>Your Profile</h2>
+            </div>
+            <div class="profile-content">
+                <div class="profile-avatar">👤</div>
+                <h3 id="profileUsername">Username</h3>
+                <p id="profileEmail">email@example.com</p>
+                
+                <div class="profile-stats-detailed">
+                    <div class="profile-stat-card">
+                        <span class="profile-stat-label">Total Score</span>
+                        <span class="profile-stat-value" id="profileTotalScore">0</span>
+                    </div>
+                    <div class="profile-stat-card">
+                        <span class="profile-stat-label">Games Played</span>
+                        <span class="profile-stat-value" id="profileGamesPlayed">0</span>
+                    </div>
+                    <div class="profile-stat-card">
+                        <span class="profile-stat-label">Highest Level</span>
+                        <span class="profile-stat-value" id="profileMaxLevel">0</span>
+                    </div>
+                    <div class="profile-stat-card">
+                        <span class="profile-stat-label">Win Rate</span>
+                        <span class="profile-stat-value" id="profileWinRate">0%</span>
+                    </div>
+                </div>
+                
+                <div class="achievements-section">
+                    <h3>🏆 Achievements</h3>
+                    <div class="achievements-grid" id="achievementsGrid"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Settings Page -->
+        <div id="settingsPage" class="page">
+            <div class="settings-header">
+                <button class="btn-back" onclick="goHome()">← BACK</button>
+                <h2>Settings</h2>
+            </div>
+            <div class="settings-content">
+                <div class="setting-item">
+                    <label>Sound Effects</label>
+                    <input type="checkbox" id="soundToggle" checked>
+                </div>
+                <div class="setting-item">
+                    <label>Music</label>
+                    <input type="checkbox" id="musicToggle" checked>
+                </div>
+                <div class="setting-item">
+                    <label>Difficulty</label>
+                    <select id="difficultySelect">
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                        <option value="expert">Expert</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>Theme</label>
+                    <div class="theme-selector">
+                        <button class="theme-btn" onclick="setTheme('dark')">🌙 Dark</button>
+                        <button class="theme-btn" onclick="setTheme('light')">☀️ Light</button>
+                        <button class="theme-btn" onclick="setTheme('auto')">🔄 Auto</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="project.js"></script>
+</body>
+</html>
